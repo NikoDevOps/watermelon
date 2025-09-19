@@ -16,7 +16,7 @@ public class WatermelonController {
     public Map<String, String> hello() {
         return Map.of(
                 "message", "Hello from Watermelon!!!!!",
-                "version", version
+                "version", version,
                 "some", "text"
         );
     }
