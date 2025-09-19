@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watermelon
+  labels:
+    app: watermelon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: watermelon
+  template:
+    metadata:
+      labels:
+        app: watermelon
+        version: v3
+    spec:
+      containers:
+        - name: watermelon
+          image: ghcr.io/nikodevops/watermelon:v3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: watermelon
+  labels:
+    app: watermelon
+spec:
+  selector:
+    app: watermelon
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
