@@ -3,7 +3,7 @@ name: Build & Push Docker (on tag)
 on:
   push:
     tags:
-      - 'v1'
+      - 'v*'
   workflow_dispatch: {}
 
 jobs:
@@ -36,8 +36,11 @@ jobs:
       - name: Extract tag/version
         id: vars
         run: |
-          # github.ref_name == 'v1' / 'v1.0.0' и т.п.
           echo "TAG=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+
+      - name: To lowercase owner
+        id: repo
+        run: echo "OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
 
       - name: Build & Push image
         uses: docker/build-push-action@v6
@@ -47,5 +50,5 @@ jobs:
           build-args: |
             APP_VERSION=${{ steps.vars.outputs.TAG }}
           tags: |
-            ghcr.io/${{ github.repository_owner }}/watermelon:${{ steps.vars.outputs.TAG }}
-            ghcr.io/${{ github.repository_owner }}/watermelon:latest
+            ghcr.io/${{ steps.repo.outputs.OWNER_LC }}/watermelon:${{ steps.vars.outputs.TAG }}
+            ghcr.io/${{ steps.repo.outputs.OWNER_LC }}/watermelon:latest
