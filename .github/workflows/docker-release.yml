@@ -47,5 +47,5 @@ jobs:
           build-args: |
             APP_VERSION=${{ steps.vars.outputs.TAG }}
           tags: |
-            ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.TAG }}
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository_owner }}/watermelon:${{ steps.vars.outputs.TAG }}
+            ghcr.io/${{ github.repository_owner }}/watermelon:latest
