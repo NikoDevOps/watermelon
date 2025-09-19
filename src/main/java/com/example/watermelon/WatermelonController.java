@@ -9,13 +9,13 @@ import java.util.Map;
 @RestController
 public class WatermelonController {
 
-    @Value("${app.version:v1}")
+    @Value("${app.version:v2}")
     private String version;
 
     @GetMapping("/hello")
     public Map<String, String> hello() {
         return Map.of(
-                "message", "Hello from Watermelon",
+                "message", "Hello from Watermelon!!!",
                 "version", version
         );
     }
